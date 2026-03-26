@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al-Aqida</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;}
+:root{--bg:#000;--s1:#0e0e0e;--s2:#1c1c1e;--s3:#2c2c2e;--s4:#3a3a3c;--t:#fff;--t2:rgba(255,255,255,0.56);--t3:rgba(255,255,255,0.32);--t4:rgba(255,255,255,0.14);--border:rgba(255,255,255,0.10);--border2:rgba(255,255,255,0.06);--r:18px;--font:-apple-system,'Helvetica Neue',sans-serif;}
+html{scroll-behavior:smooth;background:#000;}
+body{font-family:var(--font);background:var(--bg);color:var(--t);overflow-x:hidden;}
+.fade-in{opacity:0;transform:translateY(26px);transition:opacity .6s cubic-bezier(.25,.46,.45,.94),transform .6s cubic-bezier(.25,.46,.45,.94);}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+.nav{position:fixed;top:0;left:0;right:0;z-index:300;height:52px;background:rgba(0,0,0,0.82);backdrop-filter:saturate(180%) blur(32px);-webkit-backdrop-filter:saturate(180%) blur(32px);border-bottom:.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;}
+.nav-logo{display:flex;align-items:center;gap:9px;}
+.nav-en{font-size:17px;font-weight:700;letter-spacing:-.3px;}
+.nav-ar{font-family:'Noto Naskh Arabic',serif;font-size:13px;font-weight:400;color:var(--t2);direction:rtl;}
+.nav-right{display:flex;gap:6px;align-items:center;}
+.nav-a{font-size:15px;font-weight:400;color:var(--t2);text-decoration:none;padding:6px 10px;transition:color .2s;}
+.nav-a:hover{color:var(--t);}
+.nav-btn{padding:7px 16px;background:rgba(255,255,255,0.12);border-radius:100px;font-size:14px;font-weight:600;color:var(--t);border:none;cursor:pointer;font-family:var(--font);transition:background .2s;}
+.nav-btn:hover{background:rgba(255,255,255,0.2);}
+.tabs{position:sticky;top:52px;z-index:200;background:rgba(0,0,0,0.82);backdrop-filter:saturate(180%) blur(32px);-webkit-backdrop-filter:saturate(180%) blur(32px);border-bottom:.5px solid var(--border);padding:0 14px;overflow-x:auto;scrollbar-width:none;display:flex;gap:2px;align-items:center;height:44px;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{flex-shrink:0;padding:6px 14px;border-radius:100px;font-size:14px;font-weight:400;color:var(--t2);background:transparent;border:none;cursor:pointer;transition:all .2s;white-space:nowrap;font-family:var(--font);}
+.tab.on{background:var(--s3);color:var(--t);font-weight:600;}
+.hero{padding:106px 22px 60px;min-height:85vh;display:flex;flex-direction:column;justify-content:center;}
+.hero-label{font-size:14px;font-weight:400;color:var(--t2);margin-bottom:10px;}
+.hero-title{font-size:clamp(42px,10vw,64px);font-weight:700;letter-spacing:-2px;line-height:1.04;margin-bottom:20px;}
+.hero-sub{font-size:19px;font-weight:400;color:var(--t2);line-height:1.58;max-width:560px;letter-spacing:-.2px;}
+.hero-cta{margin-top:36px;display:flex;gap:10px;flex-wrap:wrap;}
+.btn-prim{padding:13px 26px;background:var(--t);color:#000;border-radius:100px;font-size:15px;font-weight:700;border:none;cursor:pointer;font-family:var(--font);text-decoration:none;transition:opacity .2s;display:inline-block;}
+.btn-prim:hover{opacity:.85;}
+.btn-sec{padding:13px 26px;background:rgba(255,255,255,.1);color:var(--t);border-radius:100px;font-size:15px;font-weight:600;border:.5px solid var(--border);cursor:pointer;font-family:var(--font);text-decoration:none;transition:background .2s;display:inline-block;}
+.btn-sec:hover{background:rgba(255,255,255,.16);}
+.cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 14px 52px;}
+.fc{border-radius:var(--r);background:var(--s2);overflow:hidden;display:flex;flex-direction:column;}
+.fc-art{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;position:relative;background:#0c0c0c;}
+.fc-body{padding:14px 16px 18px;flex:1;}
+.fc-body strong{font-size:14px;font-weight:700;display:block;margin-bottom:5px;line-height:1.3;}
+.fc-body p{font-size:13px;font-weight:400;color:var(--t2);line-height:1.55;}
+.community{padding:60px 22px 20px;text-align:center;}
+.comm-tag{font-size:13px;font-weight:400;color:var(--t2);margin-bottom:14px;}
+.comm-title{font-size:clamp(32px,8vw,52px);font-weight:700;letter-spacing:-1.5px;line-height:1.08;margin-bottom:10px;}
+.comm-dim{color:var(--t2);}
+.community-art{padding:36px 0 52px;display:flex;justify-content:center;}
+.sw{padding:52px 22px 36px;}
+.eyebrow{font-size:12px;font-weight:600;color:var(--t3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;}
+.s-title{font-size:clamp(28px,6vw,40px);font-weight:700;letter-spacing:-1px;line-height:1.1;margin-bottom:16px;}
+.s-body{font-size:17px;font-weight:400;color:var(--t2);line-height:1.68;max-width:680px;}
+.s-body p{margin-bottom:16px;}
+.s-body p:last-child{margin-bottom:0;}
+.pillars{display:flex;flex-direction:column;gap:2px;padding:0 14px 52px;}
+.pillar{padding:18px 20px;background:var(--s2);border-radius:14px;display:flex;align-items:flex-start;gap:16px;transition:background .2s;}
+.pillar:hover{background:var(--s3);}
+.p-num{font-size:12px;font-weight:700;color:var(--t3);width:22px;flex-shrink:0;padding-top:2px;}
+.p-title{font-size:16px;font-weight:700;margin-bottom:4px;}
+.p-desc{font-size:14px;font-weight:400;color:var(--t2);line-height:1.55;}
+.cg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:0 14px 52px;}
+.ct{background:var(--s2);border-radius:var(--r);padding:22px 18px;transition:background .2s;}
+.ct:hover{background:var(--s3);}
+.ct-icon{margin-bottom:14px;}
+.ct-title{font-size:16px;font-weight:700;margin-bottom:6px;}
+.ct-desc{font-size:13px;font-weight:400;color:var(--t2);line-height:1.6;}
+.qw{padding:0 14px 52px;}
+.qi{background:var(--s2);border-radius:var(--r);padding:28px 24px;border-left:2px solid rgba(255,255,255,.25);}
+.qt{font-size:19px;font-weight:400;line-height:1.55;letter-spacing:-.3px;font-style:italic;}
+.qa{margin-top:12px;font-size:13px;font-weight:400;color:var(--t3);}
+.aw{padding:0 14px 64px;}
+.ar{display:flex;align-items:center;gap:14px;padding:16px 18px;background:var(--s2);border-radius:14px;text-decoration:none;color:var(--t);transition:background .2s;cursor:pointer;}
+.ar:hover{background:var(--s3);}
+.ai{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.at strong{font-size:15px;font-weight:700;display:block;}
+.at span{font-size:13px;font-weight:400;color:var(--t2);}
+.achev{margin-left:auto;color:var(--t3);font-size:22px;font-weight:300;line-height:1;}
+footer{border-top:.5px solid var(--border);padding:32px 22px;text-align:center;}
+.f-logo{font-size:17px;font-weight:700;margin-bottom:3px;}
+.f-ar{font-family:'Noto Naskh Arabic',serif;font-size:15px;color:var(--t2);direction:rtl;margin-bottom:14px;}
+footer p{font-size:13px;font-weight:400;color:var(--t3);line-height:1.6;}
+.overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.6);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);align-items:flex-end;justify-content:center;}
+.overlay.on{display:flex;}
+.sheet{width:100%;max-width:480px;background:var(--s2);border-radius:22px 22px 0 0;padding:26px 22px 52px;animation:su .38s cubic-bezier(.32,.72,0,1);}
+@keyframes su{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.sh-h{width:36px;height:4px;background:var(--s4);border-radius:2px;margin:0 auto 24px;}
+.sh-t{font-size:20px;font-weight:700;margin-bottom:6px;letter-spacing:-.4px;}
+.sh-s{font-size:15px;font-weight:400;color:var(--t2);margin-bottom:26px;line-height:1.5;}
+.code-i{width:100%;padding:16px 18px;background:var(--s3);border:1.5px solid transparent;border-radius:13px;color:var(--t);font-size:26px;font-weight:700;letter-spacing:.3em;font-family:var(--font);outline:none;transition:border-color .2s;margin-bottom:10px;text-align:center;}
+.code-i:focus{border-color:rgba(255,255,255,.35);}
+.code-e{font-size:13px;font-weight:400;color:#ff453a;display:none;margin-bottom:10px;text-align:center;}
+.btn-f{width:100%;padding:15px;background:var(--t);color:#000;border:none;border-radius:13px;font-size:17px;font-weight:700;font-family:var(--font);cursor:pointer;transition:opacity .2s;}
+.btn-f:hover{opacity:.87;}
+.btn-c{width:100%;padding:14px;background:var(--s3);color:var(--t);border:none;border-radius:13px;font-size:17px;font-weight:400;font-family:var(--font);cursor:pointer;margin-top:8px;transition:opacity .2s;}
+.btn-c:hover{opacity:.8;}
+.gen-p{display:none;}
+.gen-p.on{display:block;}
+.main-p.gone{display:none;}
+.gen-nav{position:fixed;top:0;left:0;right:0;z-index:300;height:52px;background:rgba(0,0,0,0.82);backdrop-filter:saturate(180%) blur(32px);-webkit-backdrop-filter:saturate(180%) blur(32px);border-bottom:.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;}
+.back-b{font-size:17px;font-weight:400;color:var(--t);background:none;border:none;cursor:pointer;font-family:var(--font);padding:0;}
+.gnt{font-size:17px;font-weight:700;letter-spacing:-.3px;}
+.gen-body{padding:68px 14px 48px;}
+.gen-h{padding:20px 6px 24px;}
+.gen-ht{font-size:28px;font-weight:700;letter-spacing:-.8px;margin-bottom:6px;}
+.gen-hs{font-size:15px;font-weight:400;color:var(--t2);line-height:1.5;}
+.fsec{margin-bottom:28px;}
+.fsh{font-size:12px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;padding:0 6px;margin-bottom:8px;}
+.fg{background:var(--s2);border-radius:var(--r);overflow:hidden;}
+.fr{display:flex;align-items:center;padding:0 16px;border-bottom:.5px solid var(--border2);min-height:52px;}
+.fr:last-child{border-bottom:none;}
+.fr label{font-size:15px;font-weight:400;width:108px;flex-shrink:0;color:var(--t);}
+.fr input{flex:1;background:none;border:none;outline:none;font-size:15px;font-weight:400;color:var(--t2);font-family:var(--font);text-align:right;padding:14px 0;}
+.fr input::placeholder{color:var(--t4);}
+.prev-tabs{display:flex;gap:4px;background:var(--s2);border-radius:10px;padding:3px;margin-bottom:20px;}
+.pt{flex:1;padding:8px;text-align:center;font-size:14px;font-weight:400;color:var(--t2);background:none;border:none;border-radius:8px;cursor:pointer;font-family:var(--font);transition:all .2s;}
+.pt.on{background:var(--s3);color:var(--t);font-weight:600;}
+.cw{display:flex;justify-content:center;}
+.cs{perspective:1200px;width:300px;height:470px;}
+.ci{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,0,.2,1);}
+.ci.flip{transform:rotateY(180deg);}
+.cf-face{position:absolute;inset:0;backface-visibility:hidden;}
+.cb-side{transform:rotateY(180deg);}
+.card-front{width:100%;height:100%;background:#060606;border:.5px solid rgba(255,255,255,.14);border-radius:22px;box-shadow:0 0 0 .5px rgba(255,255,255,.05),0 30px 90px rgba(0,0,0,.95);display:flex;flex-direction:column;padding:24px 22px;position:relative;overflow:hidden;}
+.card-front::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.03) 0%,transparent 50%);pointer-events:none;border-radius:22px;}
+.cf-c1{position:absolute;right:-60px;top:30px;width:260px;height:260px;border-radius:50%;border:.5px solid rgba(255,255,255,.04);pointer-events:none;}
+.cf-c2{position:absolute;right:-20px;top:80px;width:180px;height:180px;border-radius:50%;border:.5px solid rgba(255,255,255,.035);pointer-events:none;}
+.cf-c3{position:absolute;right:30px;top:140px;width:100px;height:100px;border-radius:50%;border:.5px solid rgba(255,255,255,.03);pointer-events:none;}
+.cf-strip{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);border-radius:22px 22px 0 0;}
+.cf-logo-row{display:flex;align-items:center;gap:8px;z-index:2;position:relative;}
+.cf-logo-text{font-size:18px;font-weight:700;letter-spacing:-.2px;color:#fff;font-family:-apple-system,'Helvetica Neue',sans-serif;}
+.cf-chip{width:32px;height:24px;border-radius:4px;border:.5px solid rgba(255,255,255,.2);position:relative;overflow:hidden;margin-top:18px;z-index:2;}
+.cf-chip::before{content:'';position:absolute;inset:3px;border:.5px solid rgba(255,255,255,.12);border-radius:2px;}
+.cf-chip::after{content:'';position:absolute;top:50%;left:0;right:0;height:.5px;background:rgba(255,255,255,.1);transform:translateY(-50%);}
+.cf-bottom{margin-top:auto;z-index:2;position:relative;}
+.cf-role{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:6px;font-family:-apple-system,'Helvetica Neue',sans-serif;}
+.cf-name{font-size:22px;font-weight:700;letter-spacing:.04em;color:#fff;text-transform:uppercase;margin-bottom:10px;line-height:1.05;font-family:-apple-system,'Helvetica Neue',sans-serif;}
+.cf-id-row{display:flex;align-items:center;gap:5px;margin-bottom:16px;}
+.cf-id-dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.25);}
+.cf-id{font-size:9.5px;font-weight:400;color:rgba(255,255,255,.35);letter-spacing:.07em;font-family:-apple-system,'Helvetica Neue',sans-serif;}
+.cf-addr{font-size:8.5px;font-weight:400;color:rgba(255,255,255,.25);letter-spacing:.05em;line-height:1.7;margin-bottom:14px;text-transform:uppercase;font-family:-apple-system,'Helvetica Neue',sans-serif;}
+.cf-foot-row{display:flex;justify-content:space-between;align-items:flex-end;}
+.cf-tag{font-size:7px;font-weight:400;color:rgba(255,255,255,.18);letter-spacing:.14em;text-transform:uppercase;font-family:-apple-system,'Helvetica Neue',sans-serif;}
+.cf-dot-row{display:flex;gap:4px;}
+.cf-dot-c{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.12);}
+.card-back{width:100%;height:100%;background:#060606;border:.5px solid rgba(255,255,255,.14);border-radius:22px;box-shadow:0 0 0 .5px rgba(255,255,255,.05),0 30px 90px rgba(0,0,0,.95);display:flex;flex-direction:column;overflow:hidden;}
+.cb-mag{height:44px;background:rgba(28,28,28,1);border-bottom:.5px solid rgba(255,255,255,.06);flex-shrink:0;}
+.cb-sig-row{margin:14px 20px;height:36px;background:rgba(255,255,255,.04);border-radius:4px;border:.5px solid rgba(255,255,255,.07);display:flex;align-items:center;padding:0 12px;}
+.cb-sig-text{font-size:8px;font-weight:400;color:rgba(255,255,255,.18);letter-spacing:.08em;font-family:-apple-system,'Helvetica Neue',sans-serif;}
+.cb-body{padding:0 20px;flex:1;display:flex;flex-direction:column;}
+.cb-logo-row{display:flex;align-items:center;gap:7px;margin-bottom:10px;}
+.cb-logo-text{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.3);font-family:-apple-system,'Helvetica Neue',sans-serif;}
+.cb-line{height:.5px;background:rgba(255,255,255,.07);margin-bottom:14px;}
+.cb-desc{font-size:11px;font-weight:400;line-height:1.9;color:rgba(255,255,255,.45);font-family:-apple-system,'SF Pro Text','Helvetica Neue',sans-serif;flex:1;}
+.cb-barcode{margin:14px 20px 16px;height:40px;display:flex;gap:1.5px;align-items:stretch;}
+.cb-bar{background:rgba(255,255,255,.15);border-radius:1px;flex-grow:1;}
+.cb-bar.t{flex-grow:2;}
+.cb-bar.n{flex-grow:.6;}
+.cb-footer-row{padding:0 20px 18px;display:flex;justify-content:space-between;align-items:center;}
+.cb-ft{font-size:7.5px;font-weight:400;color:rgba(255,255,255,.18);letter-spacing:.12em;text-transform:uppercase;font-family:-apple-system,'Helvetica Neue',sans-serif;}
+.dl-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px;}
+.dl-btn{padding:13px;text-align:center;background:var(--s2);border-radius:12px;font-size:14px;font-weight:600;color:var(--t);border:none;cursor:pointer;font-family:var(--font);transition:background .2s;}
+.dl-btn:hover{background:var(--s3);}
+@media(max-width:520px){.cg{grid-template-columns:1fr;}.nav-a{display:none;}}
+</style>
+</head>
+<body>
+
+<div class="main-p" id="mainPage">
+<nav class="nav">
+  <div class="nav-logo">
+    <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
+      <circle cx="14" cy="14" r="12.5" stroke="white" stroke-width="1.1" opacity="0.9"/>
+      <circle cx="14" cy="4.5" r="1.8" fill="white" opacity="0.9"/>
+      <circle cx="22.8" cy="9.5" r="1.4" fill="white" opacity="0.75"/>
+      <circle cx="22.8" cy="18.5" r="1.4" fill="white" opacity="0.75"/>
+      <circle cx="14" cy="23.5" r="1.8" fill="white" opacity="0.9"/>
+      <circle cx="5.2" cy="18.5" r="1.4" fill="white" opacity="0.75"/>
+      <circle cx="5.2" cy="9.5" r="1.4" fill="white" opacity="0.75"/>
+      <circle cx="14" cy="14" r="2.2" fill="white"/>
+      <line x1="14" y1="6.3" x2="14" y2="11.8" stroke="white" stroke-width="0.8" opacity="0.5"/>
+      <line x1="21.5" y1="10.7" x2="16.1" y2="12.8" stroke="white" stroke-width="0.8" opacity="0.5"/>
+      <line x1="21.5" y1="17.3" x2="16.1" y2="15.2" stroke="white" stroke-width="0.8" opacity="0.5"/>
+      <line x1="14" y1="21.7" x2="14" y2="16.2" stroke="white" stroke-width="0.8" opacity="0.5"/>
+      <line x1="6.5" y1="17.3" x2="11.9" y2="15.2" stroke="white" stroke-width="0.8" opacity="0.5"/>
+      <line x1="6.5" y1="10.7" x2="11.9" y2="12.8" stroke="white" stroke-width="0.8" opacity="0.5"/>
+      <line x1="14" y1="4.5" x2="10.5" y2="2.2" stroke="white" stroke-width="0.55" opacity="0.28"/>
+      <line x1="14" y1="4.5" x2="17.5" y2="2.2" stroke="white" stroke-width="0.55" opacity="0.28"/>
+      <line x1="22.8" y1="9.5" x2="25.8" y2="7" stroke="white" stroke-width="0.55" opacity="0.28"/>
+      <line x1="22.8" y1="18.5" x2="25.8" y2="21" stroke="white" stroke-width="0.55" opacity="0.28"/>
+      <line x1="5.2" y1="9.5" x2="2.2" y2="7" stroke="white" stroke-width="0.55" opacity="0.28"/>
+      <line x1="5.2" y1="18.5" x2="2.2" y2="21" stroke="white" stroke-width="0.55" opacity="0.28"/>
+    </svg>
+    <span class="nav-en">Al-Aqida</span>
+    <span class="nav-ar">العقيدة</span>
+  </div>
+  <div class="nav-right">
+    <a href="#about" class="nav-a">About</a>
+    <a href="#admission" class="nav-a">Join</a>
+    <button class="nav-btn" onclick="openAdmin()">Admin</button>
+  </div>
+</nav>
+
+<div class="tabs">
+  <button class="tab on" onclick="window.scrollTo({top:0,behavior:'smooth'})">Overview</button>
+  <button class="tab" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">About</button>
+  <button class="tab" onclick="document.getElementById('charity').scrollIntoView({behavior:'smooth'})">Charity</button>
+  <button class="tab" onclick="document.getElementById('purpose').scrollIntoView({behavior:'smooth'})">Purpose</button>
+  <button class="tab" onclick="document.getElementById('admission').scrollIntoView({behavior:'smooth'})">Join</button>
+</div>
+
+<div class="hero fade-in">
+  <p class="hero-label">Al-Aqida · العقيدة</p>
+  <h1 class="hero-title">Understand yourself.<br>Lead your life.</h1>
+  <p class="hero-sub">A community dedicated to applying the science of the mind toward living with clarity, discipline, and genuine purpose.</p>
+  <div class="hero-cta">
+    <a href="#admission" class="btn-prim">Join the Community</a>
+    <a href="#about" class="btn-sec">Learn More</a>
+  </div>
+</div>
+
+<div class="cards-grid">
+  <div class="fc fade-in">
+    <div class="fc-art">
+      <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="10" fill="white" opacity="0.9"/>
+        <circle cx="50" cy="15" r="5" fill="white" opacity="0.7"/>
+        <circle cx="80" cy="30" r="4" fill="white" opacity="0.6"/>
+        <circle cx="80" cy="70" r="4" fill="white" opacity="0.6"/>
+        <circle cx="50" cy="85" r="5" fill="white" opacity="0.7"/>
+        <circle cx="20" cy="70" r="4" fill="white" opacity="0.6"/>
+        <circle cx="20" cy="30" r="4" fill="white" opacity="0.6"/>
+        <line x1="50" y1="20" x2="50" y2="40" stroke="white" stroke-width="1.5" opacity="0.4"/>
+        <line x1="76" y1="33" x2="60" y2="43" stroke="white" stroke-width="1.5" opacity="0.4"/>
+        <line x1="76" y1="67" x2="60" y2="57" stroke="white" stroke-width="1.5" opacity="0.4"/>
+        <line x1="50" y1="80" x2="50" y2="60" stroke="white" stroke-width="1.5" opacity="0.4"/>
+        <line x1="24" y1="67" x2="40" y2="57" stroke="white" stroke-width="1.5" opacity="0.4"/>
+        <line x1="24" y1="33" x2="40" y2="43" stroke="white" stroke-width="1.5" opacity="0.4"/>
+        <line x1="50" y1="15" x2="42" y2="5" stroke="white" stroke-width="1" opacity="0.22"/>
+        <line x1="50" y1="15" x2="58" y2="5" stroke="white" stroke-width="1" opacity="0.22"/>
+        <line x1="80" y1="30" x2="92" y2="22" stroke="white" stroke-width="1" opacity="0.22"/>
+        <line x1="20" y1="30" x2="8" y2="22" stroke="white" stroke-width="1" opacity="0.22"/>
+        <circle cx="50" cy="50" r="18" stroke="white" stroke-width="0.6" opacity="0.1"/>
+        <circle cx="50" cy="50" r="30" stroke="white" stroke-width="0.4" opacity="0.06"/>
+      </svg>
+    </div>
+    <div class="fc-body">
+      <strong>Understanding the Brain</strong>
+      <p>We study how the brain shapes belief, habit, and identity and offer practical approaches to reshape these patterns over time.</p>
+    </div>
+  </div>
+  <div class="fc fade-in" style="transition-delay:.08s">
+    <div class="fc-art">
+      <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
+        <path d="M8 45 Q18 25 28 45 Q38 65 48 45 Q58 25 68 45 Q78 65 88 45" stroke="white" stroke-width="2" fill="none" opacity="0.75" stroke-linecap="round"/>
+        <path d="M8 60 Q18 40 28 60 Q38 80 48 60 Q58 40 68 60" stroke="white" stroke-width="1.5" fill="none" opacity="0.28" stroke-linecap="round"/>
+        <path d="M18 30 Q28 10 38 30 Q48 50 58 30 Q68 10 78 30" stroke="white" stroke-width="1" fill="none" opacity="0.18" stroke-linecap="round"/>
+        <circle cx="28" cy="45" r="3.5" fill="white" opacity="0.8"/>
+        <circle cx="48" cy="45" r="3.5" fill="white" opacity="0.8"/>
+        <circle cx="68" cy="45" r="3.5" fill="white" opacity="0.8"/>
+        <circle cx="8" cy="45" r="2.5" fill="white" opacity="0.45"/>
+      </svg>
+    </div>
+    <div class="fc-body">
+      <strong>Nervous System Regulation</strong>
+      <p>Learn to consciously regulate your physiological responses, staying composed and focused regardless of external pressure.</p>
+    </div>
+  </div>
+  <div class="fc fade-in" style="transition-delay:.14s">
+    <div class="fc-art">
+      <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="38" stroke="white" stroke-width="1" opacity="0.12"/>
+        <circle cx="50" cy="50" r="26" stroke="white" stroke-width="1.2" opacity="0.22"/>
+        <circle cx="50" cy="50" r="14" stroke="white" stroke-width="1.5" opacity="0.42"/>
+        <circle cx="50" cy="50" r="5" fill="white" opacity="0.9"/>
+        <line x1="72" y1="28" x2="56" y2="46" stroke="white" stroke-width="2" opacity="0.65" stroke-linecap="round"/>
+        <polyline points="67,23 72,28 77,32" fill="none" stroke="white" stroke-width="2" opacity="0.65" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="fc-body">
+      <strong>Discovering Purpose</strong>
+      <p>Structured reflection and community dialogue to help each member identify what truly matters to them and act on it consistently.</p>
+    </div>
+  </div>
+  <div class="fc fade-in" style="transition-delay:.2s">
+    <div class="fc-art">
+      <svg width="110" height="90" viewBox="0 0 110 90" fill="none">
+        <circle cx="30" cy="22" r="10" stroke="white" stroke-width="1.5" fill="none" opacity="0.72"/>
+        <path d="M53 46 Q60 40 67 46" stroke="white" stroke-width="1.2" fill="none" opacity="0.45" stroke-linecap="round"/>
+        <circle cx="55" cy="38" r="2" fill="white" opacity="0.45"/>
+        <circle cx="65" cy="38" r="2" fill="white" opacity="0.45"/>
+        <path d="M12 62 C12 46 48 46 48 62 L48 70 L12 70 Z" stroke="white" stroke-width="1.5" fill="none" opacity="0.72" stroke-linejoin="round"/>
+        <circle cx="80" cy="22" r="10" stroke="white" stroke-width="1.5" fill="none" opacity="0.72"/>
+        <path d="M12 30 Q16 22 22 30" stroke="white" stroke-width="1.2" fill="none" opacity="0.45" stroke-linecap="round"/>
+        <circle cx="25" cy="18" r="2" fill="white" opacity="0.45"/>
+        <circle cx="35" cy="18" r="2" fill="white" opacity="0.45"/>
+        <path d="M62 62 C62 46 98 46 98 62 L98 70 L62 70 Z" stroke="white" stroke-width="1.5" fill="none" opacity="0.72" stroke-linejoin="round"/>
+        <line x1="48" y1="54" x2="62" y2="54" stroke="white" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
+        <circle cx="55" cy="54" r="4" stroke="white" stroke-width="1.5" fill="none" opacity="0.55"/>
+        <path d="M52 52 L55 48 L58 52" stroke="white" stroke-width="1.2" fill="none" opacity="0.45" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="fc-body">
+      <strong>A Genuine Community</strong>
+      <p>People who hold each other to a higher standard, support one another through difficulties, and grow together with integrity.</p>
+    </div>
+  </div>
+</div>
+
+<div class="community fade-in">
+  <p class="comm-tag">Our People</p>
+  <h2 class="comm-title">Be together.<br><span class="comm-dim">Work together.</span><br>Stay happy.</h2>
+</div>
+
+<div class="community-art fade-in" style="transition-delay:.1s">
+  <svg width="320" height="190" viewBox="0 0 320 190" fill="none">
+    <circle cx="55" cy="44" r="17" stroke="white" stroke-width="1.5" fill="none" opacity="0.65"/>
+    <path d="M48 50 Q55 58 62 50" stroke="white" stroke-width="1.3" fill="none" opacity="0.45" stroke-linecap="round"/>
+    <circle cx="50" cy="40" r="2" fill="white" opacity="0.45"/>
+    <circle cx="60" cy="40" r="2" fill="white" opacity="0.45"/>
+    <path d="M28 120 C28 98 82 98 82 120 L82 150 L28 150 Z" stroke="white" stroke-width="1.5" fill="none" opacity="0.65" stroke-linejoin="round"/>
+    <line x1="82" y1="110" x2="118" y2="107" stroke="white" stroke-width="2" opacity="0.6" stroke-linecap="round"/>
+    <circle cx="160" cy="36" r="20" stroke="white" stroke-width="1.8" fill="none" opacity="0.85"/>
+    <path d="M152 43 Q160 52 168 43" stroke="white" stroke-width="1.5" fill="none" opacity="0.65" stroke-linecap="round"/>
+    <circle cx="153" cy="33" r="2.2" fill="white" opacity="0.65"/>
+    <circle cx="167" cy="33" r="2.2" fill="white" opacity="0.65"/>
+    <path d="M126 155 C126 118 194 118 194 155 L194 165 L126 165 Z" stroke="white" stroke-width="1.8" fill="none" opacity="0.85" stroke-linejoin="round"/>
+    <line x1="126" y1="130" x2="95" y2="126" stroke="white" stroke-width="2" opacity="0.6" stroke-linecap="round"/>
+    <line x1="194" y1="130" x2="225" y2="126" stroke="white" stroke-width="2" opacity="0.6" stroke-linecap="round"/>
+    <circle cx="265" cy="44" r="17" stroke="white" stroke-width="1.5" fill="none" opacity="0.65"/>
+    <path d="M258 50 Q265 58 272 50" stroke="white" stroke-width="1.3" fill="none" opacity="0.45" stroke-linecap="round"/>
+    <circle cx="260" cy="40" r="2" fill="white" opacity="0.45"/>
+    <circle cx="270" cy="40" r="2" fill="white" opacity="0.45"/>
+    <path d="M238 120 C238 98 292 98 292 120 L292 150 L238 150 Z" stroke="white" stroke-width="1.5" fill="none" opacity="0.65" stroke-linejoin="round"/>
+    <line x1="238" y1="110" x2="202" y2="107" stroke="white" stroke-width="2" opacity="0.6" stroke-linecap="round"/>
+    <ellipse cx="118" cy="107" rx="11" ry="7" stroke="white" stroke-width="1.5" fill="none" opacity="0.55"/>
+    <path d="M110 104 L118 100 L126 104" stroke="white" stroke-width="1.2" fill="none" opacity="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <ellipse cx="210" cy="107" rx="11" ry="7" stroke="white" stroke-width="1.5" fill="none" opacity="0.55"/>
+    <path d="M202 104 L210 100 L218 104" stroke="white" stroke-width="1.2" fill="none" opacity="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M55 26 Q107 4 160 18" stroke="white" stroke-width="0.7" fill="none" opacity="0.15" stroke-dasharray="4 4"/>
+    <path d="M160 18 Q213 4 265 26" stroke="white" stroke-width="0.7" fill="none" opacity="0.15" stroke-dasharray="4 4"/>
+  </svg>
+</div>
+
+<div id="about" class="sw fade-in">
+  <p class="eyebrow">Who We Are</p>
+  <h2 class="s-title">The Practice of Self-Awareness</h2>
+  <div class="s-body">
+    <p>Al-Aqida is a learning community centered on neuroscience, self-awareness, and intentional living. We bring together people who want to understand how the mind works and apply that understanding to daily life.</p>
+    <p>We examine the nervous system as the bridge between thought and action. Members who develop a working knowledge of this system find it easier to navigate pressure, build healthier habits, and make decisions aligned with their values.</p>
+  </div>
+</div>
+
+<div class="pillars">
+  <div class="pillar fade-in">
+    <span class="p-num">01</span>
+    <div><p class="p-title">Learn How the Brain Works</p><p class="p-desc">Practical neuroscience covering belief formation, habit cycles, and emotional regulation, explained in accessible terms.</p></div>
+  </div>
+  <div class="pillar fade-in" style="transition-delay:.1s">
+    <span class="p-num">02</span>
+    <div><p class="p-title">Develop Self-Regulation</p><p class="p-desc">Skills and practices that allow you to remain calm, focused, and deliberate regardless of external circumstances.</p></div>
+  </div>
+  <div class="pillar fade-in" style="transition-delay:.2s">
+    <span class="p-num">03</span>
+    <div><p class="p-title">Build a Purposeful Life</p><p class="p-desc">Guidance and community support to help you identify what matters most and structure your time and energy around it.</p></div>
+  </div>
+</div>
+
+<div id="charity" class="sw fade-in">
+  <p class="eyebrow">Giving Back</p>
+  <h2 class="s-title">How We Give Back</h2>
+  <div class="s-body"><p>We believe that a community with knowledge has a responsibility to share it. Al-Aqida members actively contribute to the wider community around them.</p></div>
+</div>
+
+<div class="cg">
+  <div class="ct fade-in">
+    <div class="ct-icon"><svg width="30" height="30" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="9" stroke="white" stroke-width="1.2" opacity="0.55"/><circle cx="15" cy="6.5" r="2.5" fill="white" opacity="0.5"/><circle cx="21" cy="10.5" r="2" fill="white" opacity="0.42"/><circle cx="15" cy="15" r="3" fill="white" opacity="0.8"/><line x1="15" y1="9" x2="15" y2="12" stroke="white" stroke-width="1" opacity="0.3"/><line x1="19.5" y1="11.5" x2="17.2" y2="13.5" stroke="white" stroke-width="1" opacity="0.3"/></svg></div>
+    <p class="ct-title">Mental Health Resources</p>
+    <p class="ct-desc">Free counseling referrals, mental health guides, and neuroscience education made available to those who cannot otherwise access them.</p>
+  </div>
+  <div class="ct fade-in" style="transition-delay:.1s">
+    <div class="ct-icon"><svg width="30" height="30" viewBox="0 0 30 30" fill="none"><rect x="5" y="7" width="20" height="16" rx="2" stroke="white" stroke-width="1.2" opacity="0.55"/><line x1="9" y1="12" x2="21" y2="12" stroke="white" stroke-width="1" opacity="0.38"/><line x1="9" y1="16" x2="21" y2="16" stroke="white" stroke-width="1" opacity="0.38"/><line x1="9" y1="20" x2="17" y2="20" stroke="white" stroke-width="1" opacity="0.38"/></svg></div>
+    <p class="ct-title">Knowledge Programs</p>
+    <p class="ct-desc">Workshops and reading programs funded to bring foundational neuroscience and self-development education into underserved communities.</p>
+  </div>
+  <div class="ct fade-in" style="transition-delay:.2s">
+    <div class="ct-icon"><svg width="30" height="30" viewBox="0 0 30 30" fill="none"><circle cx="11" cy="10" r="4.5" stroke="white" stroke-width="1.2" opacity="0.55"/><circle cx="21" cy="12" r="3.5" stroke="white" stroke-width="1.2" opacity="0.45"/><path d="M3 25 C3 18 19 18 19 25" stroke="white" stroke-width="1.2" fill="none" opacity="0.55" stroke-linecap="round"/><path d="M19 23 C19 18.5 29 18.5 29 23" stroke="white" stroke-width="1" fill="none" opacity="0.42" stroke-linecap="round"/></svg></div>
+    <p class="ct-title">Peer Support Network</p>
+    <p class="ct-desc">Members volunteer their time in structured peer sessions, helping people work through challenges in a supportive and constructive setting.</p>
+  </div>
+</div>
+
+<div id="purpose" class="sw fade-in">
+  <p class="eyebrow">Why We Exist</p>
+  <h2 class="s-title">Built for People Who Want More</h2>
+  <div class="s-body">
+    <p>Many people today feel pulled in too many directions. The pace of modern life, constant digital noise, and social pressure make it genuinely difficult to think clearly or act deliberately.</p>
+    <p>Al-Aqida was created to offer something simple: a structured community where people can learn about the mind, develop practical tools for self-regulation, and connect with others who share the same commitment to growth.</p>
+    <p>We are not a self-help brand or a motivational platform. We are a working community with a shared practice.</p>
+  </div>
+</div>
+
+<div class="qw fade-in">
+  <div class="qi">
+    <p class="qt">The greatest revolution of our generation is the discovery that human beings, by changing the inner attitudes of their minds, can change the outer aspects of their lives.</p>
+    <p class="qa">William James, Philosopher and Psychologist</p>
+  </div>
+</div>
+
+<div id="admission" class="sw fade-in">
+  <p class="eyebrow">Join</p>
+  <h2 class="s-title">Apply for Membership</h2>
+  <div class="s-body"><p>Membership is open to anyone who is genuinely interested in personal growth, honest reflection, and contributing positively to a shared community.</p></div>
+</div>
+
+<div class="aw fade-in">
+  <a class="ar" href="https://wa.me/?text=Hello%2C%20I%20would%20like%20to%20apply%20for%20Al-Aqida%20membership." target="_blank">
+    <div class="ai" style="background:rgba(37,211,102,0.12);">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2C6.03 2 2 6.03 2 11c0 1.72.47 3.32 1.28 4.7L2 20l4.43-1.27A8.96 8.96 0 0011 20c4.97 0 9-4.03 9-9s-4.03-9-9-9z" stroke="white" stroke-width="1.4" fill="none" stroke-linejoin="round"/><path d="M8 9.5c.5-1 1.5-1.5 2-.5l.5 1-1.5 1.5c.5 1 1.5 2 2.5 2.5l1.5-1.5 1 .5c1 .5.5 1.5-.5 2-2 1-5-1-6.5-4-.5-1.5-.5-2.5.5-3z" fill="white" opacity="0.75"/></svg>
+    </div>
+    <div class="at"><strong>Apply via WhatsApp</strong><span>Get in touch directly for the fastest response</span></div>
+    <span class="achev">›</span>
+  </a>
+</div>
+
+<footer>
+  <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:4px;">
+    <svg width="18" height="18" viewBox="0 0 28 28" fill="none" opacity="0.5"><circle cx="14" cy="14" r="12.5" stroke="white" stroke-width="1.1"/><circle cx="14" cy="4.5" r="1.8" fill="white"/><circle cx="22.8" cy="9.5" r="1.4" fill="white"/><circle cx="22.8" cy="18.5" r="1.4" fill="white"/><circle cx="14" cy="23.5" r="1.8" fill="white"/><circle cx="5.2" cy="18.5" r="1.4" fill="white"/><circle cx="5.2" cy="9.5" r="1.4" fill="white"/><circle cx="14" cy="14" r="2.2" fill="white"/><line x1="14" y1="6.3" x2="14" y2="11.8" stroke="white" stroke-width="0.8"/><line x1="21.5" y1="10.7" x2="16.1" y2="12.8" stroke="white" stroke-width="0.8"/><line x1="21.5" y1="17.3" x2="16.1" y2="15.2" stroke="white" stroke-width="0.8"/><line x1="14" y1="21.7" x2="14" y2="16.2" stroke="white" stroke-width="0.8"/><line x1="6.5" y1="17.3" x2="11.9" y2="15.2" stroke="white" stroke-width="0.8"/><line x1="6.5" y1="10.7" x2="11.9" y2="12.8" stroke="white" stroke-width="0.8"/></svg>
+    <p class="f-logo">Al-Aqida</p>
+  </div>
+  <p class="f-ar">العقيدة</p>
+  <p>Knowledge. Mastery. Purpose.</p>
+  <p style="margin-top:5px;">2024 Al-Aqida. All rights reserved.</p>
+</footer>
+</div>
+
+<div class="gen-p" id="genPage">
+  <nav class="gen-nav">
+    <button class="back-b" onclick="exitGen()">‹ Back</button>
+    <span class="gnt">ID Card Generator</span>
+    <div style="width:60px;"></div>
+  </nav>
+  <div class="gen-body">
+    <div class="gen-h">
+      <h2 class="gen-ht">Create Member Card</h2>
+      <p class="gen-hs">Fill in the details below. The card updates as you type.</p>
+    </div>
+    <div class="fsec">
+      <p class="fsh">Member Details</p>
+      <div class="fg">
+        <div class="fr"><label>Full Name</label><input type="text" id="fName" placeholder="Enter name" oninput="liveUpdate()"></div>
+        <div class="fr"><label>Role</label><input type="text" id="fRole" placeholder="Member" oninput="liveUpdate()"></div>
+        <div class="fr"><label>Member ID</label><input type="text" id="fId" placeholder="ID 0000 0000" oninput="liveUpdate()"></div>
+      </div>
+    </div>
+    <div class="fsec">
+      <p class="fsh">Location</p>
+      <div class="fg">
+        <div class="fr"><label>Address</label><input type="text" id="fAddr1" placeholder="Street address" oninput="liveUpdate()"></div>
+        <div class="fr"><label>City</label><input type="text" id="fAddr2" placeholder="City, Country" oninput="liveUpdate()"></div>
+      </div>
+    </div>
+    <div class="fsec" style="margin-bottom:0;">
+      <p class="fsh" style="padding:0 6px;margin-bottom:14px;">Live Preview</p>
+      <div class="prev-tabs">
+        <button class="pt on" id="tabF" onclick="flipCard('front')">Front</button>
+        <button class="pt" id="tabB" onclick="flipCard('back')">Back</button>
+      </div>
+      <div class="cw">
+        <div class="cs">
+          <div class="ci" id="cInner">
+            <div class="cf-face">
+              <div class="card-front" id="cardFront">
+                <div class="cf-strip"></div>
+                <div class="cf-c1"></div><div class="cf-c2"></div><div class="cf-c3"></div>
+                <div class="cf-logo-row">
+                  <svg width="20" height="20" viewBox="0 0 28 28" fill="none">
+                    <circle cx="14" cy="14" r="12.5" stroke="white" stroke-width="1.1" opacity="0.9"/>
+                    <circle cx="14" cy="4.5" r="1.8" fill="white" opacity="0.9"/>
+                    <circle cx="22.8" cy="9.5" r="1.4" fill="white" opacity="0.75"/>
+                    <circle cx="22.8" cy="18.5" r="1.4" fill="white" opacity="0.75"/>
+                    <circle cx="14" cy="23.5" r="1.8" fill="white" opacity="0.9"/>
+                    <circle cx="5.2" cy="18.5" r="1.4" fill="white" opacity="0.75"/>
+                    <circle cx="5.2" cy="9.5" r="1.4" fill="white" opacity="0.75"/>
+                    <circle cx="14" cy="14" r="2.2" fill="white"/>
+                    <line x1="14" y1="6.3" x2="14" y2="11.8" stroke="white" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="21.5" y1="10.7" x2="16.1" y2="12.8" stroke="white" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="21.5" y1="17.3" x2="16.1" y2="15.2" stroke="white" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="14" y1="21.7" x2="14" y2="16.2" stroke="white" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="6.5" y1="17.3" x2="11.9" y2="15.2" stroke="white" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="6.5" y1="10.7" x2="11.9" y2="12.8" stroke="white" stroke-width="0.8" opacity="0.5"/>
+                  </svg>
+                  <span class="cf-logo-text">Al-Aqida</span>
+                </div>
+                <div class="cf-chip"></div>
+                <div class="cf-bottom">
+                  <p class="cf-role" id="cRole">MEMBER</p>
+                  <p class="cf-name" id="cName">YOUR NAME</p>
+                  <div class="cf-id-row"><span class="cf-id-dot"></span><span class="cf-id" id="cId">ID 0000 0000</span></div>
+                  <p class="cf-addr" id="cAddr">YOUR ADDRESS<br>CITY, COUNTRY</p>
+                  <div class="cf-foot-row">
+                    <span class="cf-tag">KNOWLEDGE · MASTERY · PURPOSE</span>
+                    <div class="cf-dot-row"><div class="cf-dot-c"></div><div class="cf-dot-c" style="opacity:.2"></div><div class="cf-dot-c" style="opacity:.15"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="cf-face cb-side">
+              <div class="card-back" id="cardBack">
+                <div class="cb-mag"></div>
+                <div class="cb-sig-row"><span class="cb-sig-text">AUTHORIZED SIGNATURE</span></div>
+                <div class="cb-body">
+                  <div class="cb-logo-row">
+                    <svg width="13" height="13" viewBox="0 0 28 28" fill="none" opacity="0.45"><circle cx="14" cy="14" r="12.5" stroke="white" stroke-width="1.5"/><circle cx="14" cy="14" r="2.2" fill="white"/><line x1="14" y1="6" x2="14" y2="11.8" stroke="white" stroke-width="1"/><line x1="21.5" y1="10.7" x2="16.1" y2="12.8" stroke="white" stroke-width="1"/><line x1="21.5" y1="17.3" x2="16.1" y2="15.2" stroke="white" stroke-width="1"/><line x1="14" y1="22" x2="14" y2="16.2" stroke="white" stroke-width="1"/><line x1="6.5" y1="17.3" x2="11.9" y2="15.2" stroke="white" stroke-width="1"/><line x1="6.5" y1="10.7" x2="11.9" y2="12.8" stroke="white" stroke-width="1"/></svg>
+                    <span class="cb-logo-text">Al-Aqida · العقيدة</span>
+                  </div>
+                  <div class="cb-line"></div>
+                  <p class="cb-desc">Al-Aqida is a learning community focused on neuroscience, self-awareness, and intentional living. Members are supported in developing practical tools for mental clarity, emotional regulation, and purposeful decision-making.<br><br>This card identifies a verified member of the Al-Aqida community. If found, please contact us through our official channels.</p>
+                </div>
+                <div class="cb-barcode">
+                  <div class="cb-bar"></div><div class="cb-bar n"></div><div class="cb-bar t"></div><div class="cb-bar n"></div><div class="cb-bar"></div><div class="cb-bar t"></div><div class="cb-bar n"></div><div class="cb-bar"></div><div class="cb-bar"></div><div class="cb-bar n"></div><div class="cb-bar t"></div><div class="cb-bar"></div><div class="cb-bar n"></div><div class="cb-bar"></div><div class="cb-bar t"></div><div class="cb-bar n"></div><div class="cb-bar"></div><div class="cb-bar n"></div><div class="cb-bar t"></div><div class="cb-bar"></div>
+                </div>
+                <div class="cb-footer-row">
+                  <span class="cb-ft">Al-Aqida Membership Card</span>
+                  <span class="cb-ft">al-aqida.org</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dl-btns">
+        <button class="dl-btn" onclick="downloadCard('front')">Download Front</button>
+        <button class="dl-btn" onclick="downloadCard('back')">Download Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="adminOverlay">
+  <div class="sheet">
+    <div class="sh-h"></div>
+    <p class="sh-t">Admin Access</p>
+    <p class="sh-s">Enter your access code to open the ID card generator.</p>
+    <input class="code-i" type="password" id="adminCode" placeholder="·····" maxlength="5" onkeydown="if(event.key==='Enter')checkCode()">
+    <p class="code-e" id="codeErr">Incorrect code. Please try again.</p>
+    <button class="btn-f" onclick="checkCode()">Continue</button>
+    <button class="btn-c" onclick="closeAdmin()">Cancel</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+function openAdmin(){document.getElementById('adminOverlay').classList.add('on');setTimeout(()=>document.getElementById('adminCode').focus(),300);}
+function closeAdmin(){document.getElementById('adminOverlay').classList.remove('on');document.getElementById('adminCode').value='';document.getElementById('codeErr').style.display='none';}
+function checkCode(){if(document.getElementById('adminCode').value==='23910'){closeAdmin();document.getElementById('mainPage').classList.add('gone');document.getElementById('genPage').classList.add('on');window.scrollTo(0,0);}else{document.getElementById('codeErr').style.display='block';document.getElementById('adminCode').value='';}}
+function exitGen(){document.getElementById('mainPage').classList.remove('gone');document.getElementById('genPage').classList.remove('on');window.scrollTo(0,0);}
+function liveUpdate(){const n=document.getElementById('fName').value||'YOUR NAME';const r=document.getElementById('fRole').value||'MEMBER';const i=document.getElementById('fId').value||'ID 0000 0000';const a1=document.getElementById('fAddr1').value||'YOUR ADDRESS';const a2=document.getElementById('fAddr2').value||'CITY, COUNTRY';document.getElementById('cName').textContent=n.toUpperCase();document.getElementById('cRole').textContent=r.toUpperCase();document.getElementById('cId').textContent=i;document.getElementById('cAddr').innerHTML=a1.toUpperCase()+'<br>'+a2.toUpperCase();}
+function flipCard(side){const inner=document.getElementById('cInner');const tf=document.getElementById('tabF');const tb=document.getElementById('tabB');if(side==='front'){inner.classList.remove('flip');tf.classList.add('on');tb.classList.remove('on');}else{inner.classList.add('flip');tb.classList.add('on');tf.classList.remove('on');}}
+async function downloadCard(side){flipCard(side);await new Promise(r=>setTimeout(r,450));const el=document.getElementById(side==='front'?'cardFront':'cardBack');try{const canvas=await html2canvas(el,{backgroundColor:'#060606',scale:3,useCORS:true,logging:false});const a=document.createElement('a');a.download='al-aqida-'+side+'.png';a.href=canvas.toDataURL('image/png');a.click();}catch(e){alert('Download failed. Please try again.');}}
+</script>
+</body>
+</html>
